@@ -316,33 +316,160 @@ button.view-more:hover {
   }
 }
  
-        
-    </style>
-</head>
-<body class="pb-20">
-    <!-- Floating Cart Button -->
-    <button id="floatingCartBtn" class="fixed bottom-24 right-5 z-50 bg-indigo-600 text-white w-14 h-14 rounded-full flex items-center justify-center floating-cart">
-        <i class="fas fa-shopping-cart text-xl"></i>
-        <span id="cartBadge" class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center notification-badge hidden">0</span>
-    </button>
+/* Selector de Moneda Optimizado */
+.currency-selector {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    padding: 6px 12px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    height: 36px;
+    margin-right: 8px;
+}
 
-    <!-- Header -->
-    <header class="gradient-header text-white shadow-lg">
-        <div class="container mx-auto px-4 py-4">
-            <div class="flex items-center justify-between">
-                <div class="flex items-center space-x-2">
-                    <img src="https://img.icons8.com/?size=100&id=AgFKmAmo11FB&format=png&color=ffffff" alt="Logo" class="w-10">
-                    <h1 class="text-xl font-bold">Stock Baire</h1>
-                </div>
-                <div class="flex items-center space-x-4">
-                    <button class="p-2 text-white">
-                        <i class="fas fa-search"></i>
-                    </button>
-                    <button class="p-2 text-white">
-                        <i class="fas fa-user"></i>
-                    </button>
-                </div>
-            </div>
+.currency-selector:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.currency-options {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+    padding: 8px 0;
+    z-index: 100;
+    min-width: 200px;
+    margin-top: 6px;
+    display: none;
+    border: 1px solid #e2e8f0;
+    animation: fadeIn 0.2s ease-out;
+}
+
+.currency-options.show {
+    display: block;
+}
+
+.currency-option {
+    padding: 10px 16px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    color: #334155;
+    font-size: 13px;
+}
+
+.currency-option:hover {
+    background: #f1f5f9;
+}
+
+.currency-option.active {
+    background: #f8fafc;
+    color: #4f46e5;
+    font-weight: 500;
+}
+
+.currency-badge {
+    background: rgba(79, 70, 229, 0.1);
+    color: #4f46e5;
+    padding: 3px 8px;
+    border-radius: 10px;
+    font-size: 10px;
+    font-weight: 500;
+    margin-left: 8px;
+}
+
+.currency-icon {
+    margin-right: 8px;
+    font-size: 12px;
+    width: 16px;
+    text-align: center;
+}
+
+.currency-details {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex: 1;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+     </style>
+ </head>
+ <body class="pb-20">
+     <!-- Floating Cart Button -->
+     <button id="floatingCartBtn" class="fixed bottom-24 right-5 z-50 bg-indigo-600 text-white w-14 h-14 rounded-full flex items-center justify-center floating-cart">
+         <i class="fas fa-shopping-cart text-xl"></i>
+         <span id="cartBadge" class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center notification-badge hidden">0</span>
+     </button>
+ 
+     <!-- Header -->
+     <header class="gradient-header text-white shadow-lg">
+         <div class="container mx-auto px-4 py-4">
+ <div class="flex items-center justify-between">
+     <div class="flex items-center space-x-2">
+         <img src="https://img.icons8.com/?size=100&id=AgFKmAmo11FB&format=png&color=ffffff" alt="Logo" class="w-10">
+         <h1 class="text-xl font-bold">Stock Baire</h1>
+     </div>
+     <div class="flex items-center space-x-4">
+         <!-- Selector de Moneda Mejorado -->
+         <div class="relative">
+             <div id="currencySelector" class="currency-selector flex items-center">
+                 <i class="fas fa-dollar-sign text-xs"></i>
+                 <span id="currentCurrency">USD</span>
+                 <i class="fas fa-chevron-down ml-1 text-xs"></i>
+             </div>
+             <div id="currencyOptions" class="currency-options">
+                 <div class="currency-option active" data-currency="USD">
+                     <i class="fas fa-dollar-sign currency-icon"></i>
+                     <div class="currency-details">
+                         <span>Dólar Estadounidense</span>
+                         <span class="currency-badge">Predeterminado</span>
+                     </div>
+                 </div>
+                 <div class="currency-option" data-currency="CUP">
+                     <i class="fas fa-peso-sign currency-icon"></i>
+                     <div class="currency-details">
+                         <span>Peso Cubano</span>
+                         <span class="currency-badge">1:400</span>
+                     </div>
+                 </div>
+                 <div class="currency-option" data-currency="CUPT">
+                     <i class="fas fa-money-bill-transfer currency-icon"></i>
+                     <div class="currency-details">
+                         <span>CUP Transferencia</span>
+                         <span class="currency-badge">1:440</span>
+                     </div>
+                 </div>
+             </div>
+         </div>
+         
+         <button class="p-2 text-white">
+             <i class="fas fa-search"></i>
+         </button>
+         <button class="p-2 text-white">
+             <i class="fas fa-user"></i>
+         </button>
+     </div>
+ </div>
             
             <!-- Search Bar -->
             <div class="mt-4 relative">
@@ -913,7 +1040,6 @@ button.view-more:hover {
         </button>
     </div>
 </div>
-
 <script>
 // Mostrar la página de bienvenida al cargar
 document.addEventListener('DOMContentLoaded', function() {
@@ -958,492 +1084,679 @@ document.addEventListener('DOMContentLoaded', function() {
     }, 10000);
 });
 </script>
+<script>
+// Configuración de moneda
+let selectedCurrency = localStorage.getItem('selectedCurrency') || 'USD';
+const exchangeRates = {
+    'USD': 1,
+    'CUP': 400,
+    'CUPT': 440
+};
+const currencySymbols = {
+    'USD': '$',
+    'CUP': '$',
+    'CUPT': '$'
+};
+const currencyNames = {
+    'USD': 'USD',
+    'CUP': 'CUP',
+    'CUPT': 'CUP Transferencia'
+};
 
-    <script>
-        // Carousel functionality
-        let currentSlide = 0;
-        const slides = document.querySelectorAll('.carousel-slide > div');
-        const totalSlides = slides.length;
-        const indicators = document.querySelectorAll('.indicator');
-        
-        function updateCarousel() {
-            const offset = -currentSlide * 100;
-            document.querySelector('.carousel-slide').style.transform = `translateX(${offset}%)`;
-            
-            // Update indicators
-            indicators.forEach((indicator, index) => {
-                if (index === currentSlide) {
-                    indicator.classList.add('active');
-                    indicator.classList.remove('bg-opacity-50');
-                } else {
-                    indicator.classList.remove('active');
-                    indicator.classList.add('bg-opacity-50');
-                }
-            });
-        }
-        
-        document.getElementById('nextBtn').addEventListener('click', () => {
-            currentSlide = (currentSlide + 1) % totalSlides;
-            updateCarousel();
+// Carrito de compras
+let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+let currentProductModal = null;
+
+// Inicializar selector de moneda
+function initCurrencySelector() {
+    const currencySelector = document.getElementById('currencySelector');
+    const currencyOptions = document.getElementById('currencyOptions');
+    const currentCurrency = document.getElementById('currentCurrency');
+    
+    // Establecer moneda actual
+    currentCurrency.textContent = selectedCurrency === 'CUP_TRANSFER' ? 'CUP Transf' : selectedCurrency;
+    
+    // Mostrar/ocultar opciones
+    currencySelector.addEventListener('click', function(e) {
+        e.stopPropagation();
+        currencyOptions.classList.toggle('show');
+    });
+    
+    // Seleccionar opción
+    document.querySelectorAll('.currency-option').forEach(option => {
+        option.addEventListener('click', function() {
+            const currency = this.getAttribute('data-currency');
+            selectCurrency(currency);
+            currencyOptions.classList.remove('show');
         });
+    });
+    
+    // Cerrar al hacer clic fuera
+    document.addEventListener('click', function(e) {
+        if (!currencySelector.contains(e.target) && !currencyOptions.contains(e.target)) {
+            currencyOptions.classList.remove('show');
+        }
+    });
+    
+    // Actualizar opciones activas
+    document.querySelectorAll('.currency-option').forEach(option => {
+        if (option.getAttribute('data-currency') === selectedCurrency) {
+            option.classList.add('active');
+        } else {
+            option.classList.remove('active');
+        }
+    });
+}
+
+// Cambiar moneda
+function selectCurrency(currency) {
+    selectedCurrency = currency;
+    localStorage.setItem('selectedCurrency', currency);
+    
+    // Actualizar interfaz
+    document.getElementById('currentCurrency').textContent = 
+        currency === 'CUP_TRANSFER' ? 'CUP Transf' : currency;
+    
+    // Actualizar opciones activas
+    document.querySelectorAll('.currency-option').forEach(option => {
+        if (option.getAttribute('data-currency') === currency) {
+            option.classList.add('active');
+        } else {
+            option.classList.remove('active');
+        }
+    });
+    
+    // Actualizar todos los precios en la página
+    updateAllPrices();
+    
+    // Si el carrito está abierto, actualizarlo
+    if (!document.getElementById('cartModal').classList.contains('hidden')) {
+        updateCartModal();
+    }
+}
+
+// Formatear precio según la moneda seleccionada
+function formatPrice(priceInUSD) {
+    const convertedPrice = priceInUSD * exchangeRates[selectedCurrency];
+    const symbol = currencySymbols[selectedCurrency];
+    
+    // Para precios en CUP, mostrar sin decimales
+    if (selectedCurrency !== 'USD') {
+        return `${symbol}${Math.round(convertedPrice)}`;
+    }
+    
+    return `${symbol}${convertedPrice}`;
+}
+
+// Obtener el nombre de la moneda para mostrar
+function getCurrencyName() {
+    return currencyNames[selectedCurrency];
+}
+
+// Actualizar todos los precios en la página
+function updateAllPrices() {
+    // Actualizar precios en tarjetas de productos
+    document.querySelectorAll('.price-tag').forEach(element => {
+        const usdPrice = parseFloat(element.getAttribute('data-usd-price'));
+        if (!isNaN(usdPrice)) {
+            element.textContent = formatPrice(usdPrice);
+        }
+    });
+    
+    // Actualizar precios tachados
+    document.querySelectorAll('.text-gray-500.line-through').forEach(element => {
+        const usdPrice = parseFloat(element.getAttribute('data-usd-price'));
+        if (!isNaN(usdPrice)) {
+            element.textContent = formatPrice(usdPrice);
+        }
+    });
+    
+    // Actualizar precios en el modal de producto si está abierto
+    if (!document.getElementById('productModal').classList.contains('hidden')) {
+        const modalPrice = document.getElementById('productModalPrice');
+        const modalOldPrice = document.getElementById('productModalOldPrice');
         
-        document.getElementById('prevBtn').addEventListener('click', () => {
-            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
-            updateCarousel();
-        });
-        
-        // Auto slide
-        setInterval(() => {
-            currentSlide = (currentSlide + 1) % totalSlides;
-            updateCarousel();
-        }, 5000);
-        
-        // Cart functionality
-        let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-        let currentProductModal = null;
-        
-        // Update cart badge on page load
-        updateCartBadge();
-        
-        // Open cart modal
-        document.getElementById('floatingCartBtn').addEventListener('click', () => {
-            updateCartModal();
-            document.getElementById('cartModal').classList.remove('hidden');
-        });
-        
-        // Close cart modal
-        document.getElementById('closeCartModal').addEventListener('click', () => {
-            document.getElementById('cartModal').classList.add('hidden');
-        });
-        
-        // Open product modal
-        function openProductModal(name, price, oldPrice, description, image) {
-            document.getElementById('productModalName').textContent = name;
-            document.getElementById('productModalPrice').textContent = `$${price}`;
-            document.getElementById('productModalImage').src = image;
-            document.getElementById('productModalDescription').textContent = description;
-            
-            if (oldPrice && oldPrice > price) {
-                document.getElementById('productModalOldPrice').textContent = `$${oldPrice}`;
-                document.getElementById('productModalOldPrice').classList.remove('hidden');
-            } else {
-                document.getElementById('productModalOldPrice').classList.add('hidden');
-            }
-            
-            // Store current product info for the add to cart button
-            currentProductModal = {
-                name,
-                price,
-                image
-            };
-            
-            document.getElementById('productModal').classList.remove('hidden');
+        if (modalPrice && modalPrice.getAttribute('data-usd-price')) {
+            const usdPrice = parseFloat(modalPrice.getAttribute('data-usd-price'));
+            modalPrice.textContent = formatPrice(usdPrice);
         }
         
-        // Close product modal
-        document.getElementById('closeProductModal').addEventListener('click', () => {
-            document.getElementById('productModal').classList.add('hidden');
-        });
-        
-        // Add to cart from product modal
-        document.getElementById('addToCartFromModal').addEventListener('click', () => {
-            if (currentProductModal) {
-                addToCart(currentProductModal.name, currentProductModal.price, currentProductModal.image);
-                document.getElementById('productModal').classList.add('hidden');
-            }
-        });
-        
-        // Filter products by category
-        function filterProducts(category) {
-            // Update category navigation buttons
-            document.querySelectorAll('.category-item').forEach(item => {
-                item.classList.remove('active');
-                item.classList.remove('text-indigo-300');
-            });
-            
-            const activeButton = document.querySelector(`button[onclick="filterProducts('${category}')"]`);
-            activeButton.classList.add('active');
-            activeButton.classList.add('text-indigo-300');
-            activeButton.classList.add('filter-active');
-            
-            // Update category title
-            const categoryTitles = {
-                'all': 'Todos los Productos',
-                'phones': 'Teléfonos',
-                'laptops': 'Laptops',
-                'watches': 'Smartwatches',
-                'accessories': 'Accesorios',
-                'home': 'Hogar',
-                'electronics': 'Electrónica'
-            };
-            
-            document.getElementById('currentCategory').textContent = categoryTitles[category] || categoryTitles['all'];
-            
-            // Filter products
-            const products = document.querySelectorAll('.product-item');
-            let hasVisibleProducts = false;
-            
-            products.forEach(product => {
-                if (category === 'all' || product.getAttribute('data-category') === category) {
-                    product.style.display = 'block';
-                    product.classList.add('product-item-visible');
-                    hasVisibleProducts = true;
-                } else {
-                    product.style.display = 'none';
-                    product.classList.remove('product-item-visible');
-                }
-            });
-            
-            // If no products found for category, show a message
-            if (!hasVisibleProducts && category !== 'all') {
-                document.getElementById('productsContainer').innerHTML = `
-                    <div class="col-span-full text-center py-10">
-                        <i class="fas fa-box-open text-4xl text-gray-300 mb-3"></i>
-                        <h3 class="text-lg font-medium text-gray-500">No hay productos en esta categoría</h3>
-                    </div>
-                `;
-            }
-            
-            // Scroll to top of products
-            document.getElementById('productsContainer').scrollIntoView({ behavior: 'smooth' });
+        if (modalOldPrice && modalOldPrice.getAttribute('data-usd-price')) {
+            const usdPrice = parseFloat(modalOldPrice.getAttribute('data-usd-price'));
+            modalOldPrice.textContent = formatPrice(usdPrice);
         }
+    }
+    
+    // Actualizar precios en badges de descuento
+    document.querySelectorAll('.discount-badge').forEach(badge => {
+        const originalPrice = parseFloat(badge.getAttribute('data-original-usd'));
+        const discountPrice = parseFloat(badge.getAttribute('data-discount-usd'));
         
-        // Add to cart function
-        function addToCart(productName, productPrice, productImage) {
-            // Check if product already exists in cart
-            const existingProductIndex = cartItems.findIndex(item => item.name === productName);
-            
-            if (existingProductIndex >= 0) {
-                // Increase quantity if product already in cart
-                cartItems[existingProductIndex].quantity += 1;
-            } else {
-                // Add new product to cart
-                cartItems.push({
-                    name: productName,
-                    price: productPrice,
-                    image: productImage,
-                    quantity: 1
-                });
-            }
-            
-            // Save to local storage
-            localStorage.setItem('cartItems', JSON.stringify(cartItems));
-            
-            // Update cart badge
-            updateCartBadge();
-            
-            // Show notification
-            showNotification(`${productName} añadido al carrito`);
-            
-            // Update cart modal if it's open
-            if (!document.getElementById('cartModal').classList.contains('hidden')) {
-                updateCartModal();
-            }
+        if (!isNaN(originalPrice) && !isNaN(discountPrice)) {
+            const discountPercent = Math.round((1 - discountPrice / originalPrice) * 100);
+            badge.textContent = `-${discountPercent}%`;
         }
-        
-        // Update cart badge
-        function updateCartBadge() {
-            const cartBadge = document.getElementById('cartBadge');
-            const totalItems = cartItems.reduce((total, item) => total + item.quantity, 0);
-            
-            if (totalItems > 0) {
-                cartBadge.textContent = totalItems;
-                cartBadge.classList.remove('hidden');
-            } else {
-                cartBadge.classList.add('hidden');
-            }
-        }
-        
-        // Update cart modal content
-        function updateCartModal() {
-            const container = document.getElementById('cartItemsContainer');
-            const cartTitle = document.getElementById('cartTitle');
-            const subtotalElement = document.getElementById('subtotal');
-            const totalElement = document.getElementById('total');
-            
-            const totalItems = cartItems.reduce((total, item) => total + item.quantity, 0);
-            cartTitle.textContent = `Carrito de Compras (${totalItems})`;
-            
-            // Calculate subtotal
-            const subtotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-            subtotalElement.textContent = `$${subtotal}`;
-            
-            // Calculate shipping (free if over $200)
-            let shipping = subtotal >= 200 ? 0 : 50;
-            document.getElementById('shipping').textContent = shipping === 0 ? 'GRATIS' : `$${shipping}`;
-            
-            // Calculate total
-            const total = subtotal + shipping;
-            totalElement.textContent = `$${total}`;
-            
-            // Clear container
-            container.innerHTML = '';
-            
-            if (cartItems.length === 0) {
-                container.innerHTML = `
-                    <div class="text-center py-10">
-                        <i class="fas fa-shopping-cart text-4xl text-gray-300 mb-3"></i>
-                        <p class="text-gray-500">Tu carrito está vacío</p>
-                    </div>
-                `;
-                document.getElementById('cartSummary').classList.add('hidden');
-            } else {
-                document.getElementById('cartSummary').classList.remove('hidden');
-                
-                // Add each item to the container
-                cartItems.forEach((item, index) => {
-                    const itemElement = document.createElement('div');
-                    itemElement.className = 'flex items-center space-x-4 border-b pb-3';
-                    itemElement.innerHTML = `
-                        <div class="w-20 h-20 bg-gray-100 rounded-lg flex items-center justify-center">
-                            <img src="${item.image}" alt="${item.name}" class="max-h-full max-w-full">
-                        </div>
-                        <div class="flex-1">
-                            <h4 class="font-medium text-sm line-clamp-1">${item.name}</h4>
-                            <div class="flex justify-between items-center mt-1">
-                                <span class="price-tag text-sm">$${item.price}</span>
-                                <div class="flex items-center space-x-2">
-                                    <button class="quantity-btn decrease" data-index="${index}">
-                                        <i class="fas fa-minus text-xs"></i>
-                                    </button>
-                                    <span class="text-sm">${item.quantity}</span>
-                                    <button class="quantity-btn increase" data-index="${index}">
-                                        <i class="fas fa-plus text-xs"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        <button class="text-gray-400 remove" data-index="${index}">
-                            <i class="fas fa-trash-alt"></i>
-                        </button>
-                    `;
-                    container.appendChild(itemElement);
-                });
-                
-                // Add event listeners to quantity buttons and remove buttons
-                document.querySelectorAll('.decrease').forEach(button => {
-                    button.addEventListener('click', (e) => {
-                        const index = e.target.closest('button').getAttribute('data-index');
-                        decreaseQuantity(index);
-                    });
-                });
-                
-                document.querySelectorAll('.increase').forEach(button => {
-                    button.addEventListener('click', (e) => {
-                        const index = e.target.closest('button').getAttribute('data-index');
-                        increaseQuantity(index);
-                    });
-                });
-                
-                document.querySelectorAll('.remove').forEach(button => {
-                    button.addEventListener('click', (e) => {
-                        const index = e.target.closest('button').getAttribute('data-index');
-                        removeFromCart(index);
-                    });
-                });
-            }
-            
-            // Update checkout button based on cart contents
-            const checkoutBtn = document.getElementById('checkoutBtn');
-            if (cartItems.length === 0) {
-                checkoutBtn.disabled = true;
-            } else {
-                checkoutBtn.disabled = false;
-            }
-        }
-        
-        // Increase quantity
-        function increaseQuantity(index) {
-            if (cartItems[index]) {
-                cartItems[index].quantity += 1;
-                localStorage.setItem('cartItems', JSON.stringify(cartItems));
-                updateCartBadge();
-                updateCartModal();
-            }
-        }
-        
-        // Decrease quantity
-        function decreaseQuantity(index) {
-            if (cartItems[index]) {
-                if (cartItems[index].quantity > 1) {
-                    cartItems[index].quantity -= 1;
-                } else {
-                    cartItems.splice(index, 1);
-                }
-                localStorage.setItem('cartItems', JSON.stringify(cartItems));
-                updateCartBadge();
-                updateCartModal();
-            }
-        }
-        
-        // Remove from cart
-        function removeFromCart(index) {
-            if (cartItems[index]) {
-                cartItems.splice(index, 1);
-                localStorage.setItem('cartItems', JSON.stringify(cartItems));
-                updateCartBadge();
-                updateCartModal();
-            }
-        }
-        
-        // Show notification
-        function showNotification(message) {
-            const notification = document.createElement('div');
-            notification.className = 'fixed top-20 left-1/2 transform -translate-x-1/2 bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg z-50 animate-fade-in-out';
-            notification.textContent = message;
-            document.body.appendChild(notification);
-            
-            setTimeout(() => {
-                notification.classList.add('animate-fade-out');
-                setTimeout(() => notification.remove(), 300);
-            }, 3000);
-        }
-        
-        // Checkout button click
-        document.getElementById('checkoutBtn').addEventListener('click', () => {
-            if (cartItems.length > 0) {
-                openCheckoutModal();
-            }
-        });
-        
-        // Open checkout modal
-        function openCheckoutModal() {
-            const orderSummary = document.getElementById('orderSummary');
-            const checkoutTotalPrice = document.getElementById('checkoutTotalPrice');
-            
-            // Calculate subtotal and shipping
-            const subtotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-            const shipping = subtotal >= 200 ? 0 : 50;
-            const total = subtotal + shipping;
-            
-            // Update order summary
-            orderSummary.innerHTML = '';
-            cartItems.forEach(item => {
-                const itemElement = document.createElement('div');
-                itemElement.className = 'flex justify-between mb-2';
-                itemElement.innerHTML = `
-                    <span>${item.name} x${item.quantity}</span>
-                    <span class="price-tag">$${item.price * item.quantity}</span>
-                `;
-                orderSummary.appendChild(itemElement);
-            });
-            
-            // Add subtotal and shipping
-            const subtotalElement = document.createElement('div');
-            subtotalElement.className = 'flex justify-between border-t border-gray-200 pt-2 mt-2';
-            subtotalElement.innerHTML = `
-                <span>Subtotal</span>
-                <span>$${subtotal}</span>
-            `;
-            orderSummary.appendChild(subtotalElement);
-            
-            const shippingElement = document.createElement('div');
-            shippingElement.className = 'flex justify-between';
-            shippingElement.innerHTML = `
-                <span>Envío</span>
-                <span>${shipping === 0 ? 'GRATIS' : '$' + shipping}</span>
-            `;
-            orderSummary.appendChild(shippingElement);
-            
-            // Update total
-            checkoutTotalPrice.textContent = `$${total}`;
-            
-            // Open modal
-            document.getElementById('checkoutModal').classList.remove('hidden');
-        }
-        
-        // Close checkout modal
-        document.getElementById('closeCheckoutModal').addEventListener('click', () => {
-            document.getElementById('checkoutModal').classList.add('hidden');
-        });
-        
-        // Submit checkout form - CORREGIDO
-        document.getElementById('checkoutForm').addEventListener('submit', (e) => {
-            e.preventDefault();
-            
-            const name = document.getElementById('name').value;
-            const phone = document.getElementById('phone').value;
-            const deliveryLocation = document.getElementById('deliveryLocation').value;
-            const address = document.getElementById('address').value;
-            const reference = document.getElementById('reference').value;
-            
-            // Calculate subtotal and shipping
-            const subtotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-            const shipping = subtotal >= 200 ? 0 : 50;
-            const total = subtotal + shipping;
-            
-            // Create WhatsApp message - CORREGIDO para asegurar que todos los productos se envíen
-            let message = `¡Hola! Quiero realizar un pedido:%0A%0A`;
-            message += `*Nombre:* ${name}%0A`;
-            message += `*Teléfono:* ${phone}%0A`;
-            message += `*Lugar de entrega:* ${deliveryLocation}%0A`;
-            message += `*Dirección:* ${address}%0A`;
-            message += `*Punto de referencia:* ${reference || 'Ninguno'}%0A%0A`;
-            message += `*Detalles del pedido:*%0A`;
-            
-            // Asegurarse de que todos los productos se incluyan en el mensaje
-            cartItems.forEach(item => {
-                message += `- ${item.name} x${item.quantity} ($${item.price * item.quantity})%0A`;
-            });
-            
-            message += `%0A*Subtotal:* $${subtotal}%0A`;
-            message += `*Envío:* ${shipping === 0 ? 'GRATIS' : '$' + shipping}%0A`;
-            message += `*Total:* $${total}%0A%0A`;
-            message += `¡Gracias!`;
-            
-            // Open WhatsApp with the message
-            window.open(`https://wa.me/5353040553?text=${message}`, '_blank');
-            
-            // Show notification
-            showNotification('Pedido enviado por WhatsApp');
-            
-            // Close modals
-            document.getElementById('checkoutModal').classList.add('hidden');
-            document.getElementById('cartModal').classList.add('hidden');
-            
-            // Clear cart
-            cartItems = [];
-            localStorage.setItem('cartItems', JSON.stringify(cartItems));
-            updateCartBadge();
-        });
-        
-        // Add style for animations
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes fade-in-out {
-                0% { opacity: 0; transform: translateY(-10px); }
-                15%, 85% { opacity: 1; transform: translateY(0); }
-                100% { opacity: 0; transform: translateY(-10px); }
-            }
-            
-            .animate-fade-in-out {
-                animation: fade-in-out 3s ease-in-out forwards;
-            }
-            
-            @keyframes fade-out {
-                to { opacity: 0; transform: translateY(-10px); }
-            }
-            
-            .animate-fade-out {
-                animation: fade-out 0.3s ease-in-out forwards;
-            }
+    });
+}
+
+// MODIFICAR LA FUNCIÓN updateCartModal PARA USAR LA MONEDA SELECCIONADA
+function updateCartModal() {
+    const container = document.getElementById('cartItemsContainer');
+    const cartTitle = document.getElementById('cartTitle');
+    const subtotalElement = document.getElementById('subtotal');
+    const totalElement = document.getElementById('total');
+    const shippingElement = document.getElementById('shipping');
+    
+    const totalItems = cartItems.reduce((total, item) => total + item.quantity, 0);
+    cartTitle.textContent = `Carrito de Compras (${totalItems})`;
+    
+    // Calculate subtotal
+    const subtotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    subtotalElement.textContent = formatPrice(subtotal);
+    
+    // Calculate shipping (free if over $200)
+    let shipping = subtotal >= 200 ? 0 : 50;
+    shippingElement.textContent = shipping === 0 ? 'GRATIS' : formatPrice(shipping);
+    
+    // Calculate total
+    const total = subtotal + shipping;
+    totalElement.textContent = formatPrice(total);
+    
+    // Clear container
+    container.innerHTML = '';
+    
+    if (cartItems.length === 0) {
+        container.innerHTML = `
+            <div class="text-center py-10">
+                <i class="fas fa-shopping-cart text-4xl text-gray-300 mb-3"></i>
+                <p class="text-gray-500">Tu carrito está vacío</p>
+            </div>
         `;
-        document.head.appendChild(style);
-    </script>
-    <script>
-      // Animación para el texto deslizante suave
-      function initTextSlider() {
-        const texts = document.querySelectorAll('.sliding-text');
-        let currentIndex = 0;
+        document.getElementById('cartSummary').classList.add('hidden');
+    } else {
+        document.getElementById('cartSummary').classList.remove('hidden');
+        
+        // Add each item to the container
+        cartItems.forEach((item, index) => {
+            const itemElement = document.createElement('div');
+            itemElement.className = 'flex items-center space-x-4 border-b pb-3';
+            itemElement.innerHTML = `
+                <div class="w-20 h-20 bg-gray-100 rounded-lg flex items-center justify-center">
+                    <img src="${item.image}" alt="${item.name}" class="max-h-full max-w-full">
+                </div>
+                <div class="flex-1">
+                    <h4 class="font-medium text-sm line-clamp-1">${item.name}</h4>
+                    <div class="flex justify-between items-center mt-1">
+                        <span class="price-tag text-sm">${formatPrice(item.price)}</span>
+                        <div class="flex items-center space-x-2">
+                            <button class="quantity-btn decrease" data-index="${index}">
+                                <i class="fas fa-minus text-xs"></i>
+                            </button>
+                            <span class="text-sm">${item.quantity}</span>
+                            <button class="quantity-btn increase" data-index="${index}">
+                                <i class="fas fa-plus text-xs"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <button class="text-gray-400 remove" data-index="${index}">
+                    <i class="fas fa-trash-alt"></i>
+                </button>
+            `;
+            container.appendChild(itemElement);
+        });
+        
+        // Add event listeners to quantity buttons and remove buttons
+        document.querySelectorAll('.decrease').forEach(button => {
+            button.addEventListener('click', (e) => {
+                const index = e.target.closest('button').getAttribute('data-index');
+                decreaseQuantity(index);
+            });
+        });
+        
+        document.querySelectorAll('.increase').forEach(button => {
+            button.addEventListener('click', (e) => {
+                const index = e.target.closest('button').getAttribute('data-index');
+                increaseQuantity(index);
+            });
+        });
+        
+        document.querySelectorAll('.remove').forEach(button => {
+            button.addEventListener('click', (e) => {
+                const index = e.target.closest('button').getAttribute('data-index');
+                removeFromCart(index);
+            });
+        });
+    }
     
-        setInterval(() => {
-          texts[currentIndex].classList.remove('active');
-          currentIndex = (currentIndex + 1) % texts.length;
-          texts[currentIndex].classList.add('active');
-        }, 3500); // Cambiar cada 3.5 segundos para mejor legibilidad
-      }
+    // Update checkout button based on cart contents
+    const checkoutBtn = document.getElementById('checkoutBtn');
+    if (cartItems.length === 0) {
+        checkoutBtn.disabled = true;
+    } else {
+        checkoutBtn.disabled = false;
+    }
+}
+
+// MODIFICAR LA FUNCIÓN openProductModal PARA USAR LA MONEDA SELECCIONADA
+function openProductModal(name, price, oldPrice, description, image) {
+    document.getElementById('productModalName').textContent = name;
+    document.getElementById('productModalPrice').textContent = formatPrice(price);
+    document.getElementById('productModalImage').src = image;
+    document.getElementById('productModalDescription').textContent = description;
     
-      document.addEventListener('DOMContentLoaded', initTextSlider);
-    </script>
+    if (oldPrice && oldPrice > price) {
+        document.getElementById('productModalOldPrice').textContent = formatPrice(oldPrice);
+        document.getElementById('productModalOldPrice').classList.remove('hidden');
+    } else {
+        document.getElementById('productModalOldPrice').classList.add('hidden');
+    }
+    
+    // Store current product info for the add to cart button
+    currentProductModal = {
+        name,
+        price,
+        image
+    };
+    
+    document.getElementById('productModal').classList.remove('hidden');
+}
+
+// FUNCIÓN openCheckoutModal
+function openCheckoutModal() {
+    const orderSummary = document.getElementById('orderSummary');
+    const checkoutTotalPrice = document.getElementById('checkoutTotalPrice');
+    
+    // Calculate subtotal and shipping
+    const subtotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    const shipping = subtotal >= 200 ? 0 : 50;
+    const total = subtotal + shipping;
+    
+    // Update order summary
+    orderSummary.innerHTML = '';
+    cartItems.forEach(item => {
+        const itemElement = document.createElement('div');
+        itemElement.className = 'flex justify-between mb-2';
+        itemElement.innerHTML = `
+            <span>${item.name} x${item.quantity}</span>
+            <span class="price-tag">${formatPrice(item.price * item.quantity)}</span>
+        `;
+        orderSummary.appendChild(itemElement);
+    });
+    
+    // Add subtotal and shipping
+    const subtotalElement = document.createElement('div');
+    subtotalElement.className = 'flex justify-between border-t border-gray-200 pt-2 mt-2';
+    subtotalElement.innerHTML = `
+        <span>Subtotal</span>
+        <span>${formatPrice(subtotal)}</span>
+    `;
+    orderSummary.appendChild(subtotalElement);
+    
+    const shippingElement = document.createElement('div');
+    shippingElement.className = 'flex justify-between';
+    shippingElement.innerHTML = `
+        <span>Envío</span>
+        <span>${shipping === 0 ? 'GRATIS' : formatPrice(shipping)}</span>
+    `;
+    orderSummary.appendChild(shippingElement);
+    
+    // Update total
+    checkoutTotalPrice.textContent = formatPrice(total);
+    
+    // Open modal
+    document.getElementById('checkoutModal').classList.remove('hidden');
+}
+
+// CORREGIR EL ENVÍO A WHATSAPP
+document.getElementById('checkoutForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    
+    const name = document.getElementById('name').value;
+    const phone = document.getElementById('phone').value;
+    const deliveryLocation = document.getElementById('deliveryLocation').value;
+    const address = document.getElementById('address').value;
+    const reference = document.getElementById('reference').value;
+    
+    // Calculate subtotal and shipping
+    const subtotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    const shipping = subtotal >= 200 ? 0 : 50;
+    const total = subtotal + shipping;
+    
+    // Create WhatsApp message - CORREGIDO
+    let message = `¡Hola! Quiero realizar un pedido:%0A%0A`;
+    message += `*Nombre:* ${encodeURIComponent(name)}%0A`;
+    message += `*Teléfono:* ${encodeURIComponent(phone)}%0A`;
+    message += `*Lugar de entrega:* ${encodeURIComponent(deliveryLocation)}%0A`;
+    message += `*Dirección:* ${encodeURIComponent(address)}%0A`;
+    message += `*Punto de referencia:* ${encodeURIComponent(reference || 'Ninguno')}%0A%0A`;
+    message += `*Moneda:* ${encodeURIComponent(getCurrencyName())}%0A`;
+    message += `*Detalles del pedido:*%0A`;
+    
+    // Asegurarse de que todos los productos se incluyan en el mensaje
+    cartItems.forEach(item => {
+        message += `- ${encodeURIComponent(item.name)} x${encodeURIComponent(item.quantity)} (${encodeURIComponent(formatPrice(item.price * item.quantity))})%0A`;
+    });
+    
+    message += `%0A*Subtotal:* ${encodeURIComponent(formatPrice(subtotal))}%0A`;
+    message += `*Envío:* ${encodeURIComponent(shipping === 0 ? 'GRATIS' : formatPrice(shipping))}%0A`;
+    message += `*Total:* ${encodeURIComponent(formatPrice(total))}%0A%0A`;
+    message += `¡Gracias!`;
+    
+    // Open WhatsApp with the message
+    window.open(`https://wa.me/5353040553?text=${message}`, '_blank');
+    
+    // Show notification
+    showNotification('Pedido enviado por WhatsApp');
+    
+    // Close modals
+    document.getElementById('checkoutModal').classList.add('hidden');
+    document.getElementById('cartModal').classList.add('hidden');
+    
+    // Clear cart
+    cartItems = [];
+    localStorage.setItem('cartItems', JSON.stringify(cartItems));
+    updateCartBadge();
+});
+
+// Funciones del carrito
+function addToCart(productName, productPrice, productImage) {
+    // Check if product already exists in cart
+    const existingProductIndex = cartItems.findIndex(item => item.name === productName);
+    
+    if (existingProductIndex >= 0) {
+        // Increase quantity if product already in cart
+        cartItems[existingProductIndex].quantity += 1;
+    } else {
+        // Add new product to cart
+        cartItems.push({
+            name: productName,
+            price: productPrice,
+            image: productImage,
+            quantity: 1
+        });
+    }
+    
+    // Save to local storage
+    localStorage.setItem('cartItems', JSON.stringify(cartItems));
+    
+    // Update cart badge
+    updateCartBadge();
+    
+    // Show notification
+    showNotification(`${productName} añadido al carrito`);
+    
+    // Update cart modal if it's open
+    if (!document.getElementById('cartModal').classList.contains('hidden')) {
+        updateCartModal();
+    }
+}
+
+function updateCartBadge() {
+    const cartBadge = document.getElementById('cartBadge');
+    const totalItems = cartItems.reduce((total, item) => total + item.quantity, 0);
+    
+    if (totalItems > 0) {
+        cartBadge.textContent = totalItems;
+        cartBadge.classList.remove('hidden');
+    } else {
+        cartBadge.classList.add('hidden');
+    }
+}
+
+function decreaseQuantity(index) {
+    if (cartItems[index]) {
+        if (cartItems[index].quantity > 1) {
+            cartItems[index].quantity -= 1;
+        } else {
+            cartItems.splice(index, 1);
+        }
+        localStorage.setItem('cartItems', JSON.stringify(cartItems));
+        updateCartBadge();
+        updateCartModal();
+    }
+}
+
+function increaseQuantity(index) {
+    if (cartItems[index]) {
+        cartItems[index].quantity += 1;
+        localStorage.setItem('cartItems', JSON.stringify(cartItems));
+        updateCartBadge();
+        updateCartModal();
+    }
+}
+
+function removeFromCart(index) {
+    if (cartItems[index]) {
+        cartItems.splice(index, 1);
+        localStorage.setItem('cartItems', JSON.stringify(cartItems));
+        updateCartBadge();
+        updateCartModal();
+    }
+}
+
+function showNotification(message) {
+    const notification = document.createElement('div');
+    notification.className = 'fixed top-20 left-1/2 transform -translate-x-1/2 bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg z-50 animate-fade-in-out';
+    notification.textContent = message;
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+        notification.classList.add('animate-fade-out');
+        setTimeout(() => notification.remove(), 300);
+    }, 3000);
+}
+
+// Funciones del carousel
+let currentSlide = 0;
+const slides = document.querySelectorAll('.carousel-slide > div');
+const totalSlides = slides.length;
+const indicators = document.querySelectorAll('.indicator');
+
+function updateCarousel() {
+    const offset = -currentSlide * 100;
+    document.querySelector('.carousel-slide').style.transform = `translateX(${offset}%)`;
+    
+    // Update indicators
+    indicators.forEach((indicator, index) => {
+        if (index === currentSlide) {
+            indicator.classList.add('active');
+            indicator.classList.remove('bg-opacity-50');
+        } else {
+            indicator.classList.remove('active');
+            indicator.classList.add('bg-opacity-50');
+        }
+    });
+}
+
+// Funciones de filtrado de productos
+function filterProducts(category) {
+    // Update category navigation buttons
+    document.querySelectorAll('.category-item').forEach(item => {
+        item.classList.remove('active');
+        item.classList.remove('text-indigo-300');
+    });
+    
+    const activeButton = document.querySelector(`button[onclick="filterProducts('${category}')"]`);
+    activeButton.classList.add('active');
+    activeButton.classList.add('text-indigo-300');
+    activeButton.classList.add('filter-active');
+    
+    // Update category title
+    const categoryTitles = {
+        'all': 'Todos los Productos',
+        'phones': 'Teléfonos',
+        'laptops': 'Laptops',
+        'watches': 'Smartwatches',
+        'accessories': 'Accesorios',
+        'home': 'Hogar',
+        'electronics': 'Electrónica'
+    };
+    
+    document.getElementById('currentCategory').textContent = categoryTitles[category] || categoryTitles['all'];
+    
+    // Filter products
+    const products = document.querySelectorAll('.product-item');
+    let hasVisibleProducts = false;
+    
+    products.forEach(product => {
+        if (category === 'all' || product.getAttribute('data-category') === category) {
+            product.style.display = 'block';
+            product.classList.add('product-item-visible');
+            hasVisibleProducts = true;
+        } else {
+            product.style.display = 'none';
+            product.classList.remove('product-item-visible');
+        }
+    });
+    
+    // If no products found for category, show a message
+    if (!hasVisibleProducts && category !== 'all') {
+        document.getElementById('productsContainer').innerHTML = `
+            <div class="col-span-full text-center py-10">
+                <i class="fas fa-box-open text-4xl text-gray-300 mb-3"></i>
+                <h3 class="text-lg font-medium text-gray-500">No hay productos en esta categoría</h3>
+            </div>
+        `;
+    }
+    
+    // Scroll to top of products
+    document.getElementById('productsContainer').scrollIntoView({ behavior: 'smooth' });
+}
+
+// Animación para el texto deslizante suave
+function initTextSlider() {
+    const texts = document.querySelectorAll('.sliding-text');
+    let currentIndex = 0;
+
+    setInterval(() => {
+        texts[currentIndex].classList.remove('active');
+        currentIndex = (currentIndex + 1) % texts.length;
+        texts[currentIndex].classList.add('active');
+    }, 3500); // Cambiar cada 3.5 segundos para mejor legibilidad
+}
+
+// INICIALIZACIÓN - AL FINAL DEL SCRIPT
+document.addEventListener('DOMContentLoaded', function() {
+    // Inicializar el selector de moneda
+    initCurrencySelector();
+    updateAllPrices();
+    
+    // Añadir atributos data-usd-price a todos los elementos de precio
+    document.querySelectorAll('.price-tag').forEach(element => {
+        const priceText = element.textContent.replace('$', '');
+        const priceValue = parseFloat(priceText);
+        if (!isNaN(priceValue)) {
+            element.setAttribute('data-usd-price', priceValue);
+        }
+    });
+    
+    // Añadir atributos data-usd-price a los precios tachados
+    document.querySelectorAll('.text-gray-500.line-through').forEach(element => {
+        const priceText = element.textContent.replace('$', '');
+        const priceValue = parseFloat(priceText);
+        if (!isNaN(priceValue)) {
+            element.setAttribute('data-usd-price', priceValue);
+        }
+    });
+    
+    // Añadir atributos a los badges de descuento
+    document.querySelectorAll('.discount-badge').forEach(badge => {
+        const card = badge.closest('.product-card');
+        if (card) {
+            const currentPriceElem = card.querySelector('.price-tag');
+            const oldPriceElem = card.querySelector('.line-through');
+            
+            if (currentPriceElem && oldPriceElem) {
+                const currentPrice = parseFloat(currentPriceElem.getAttribute('data-usd-price'));
+                const oldPrice = parseFloat(oldPriceElem.getAttribute('data-usd-price'));
+                
+                if (!isNaN(currentPrice) && !isNaN(oldPrice)) {
+                    badge.setAttribute('data-original-usd', oldPrice);
+                    badge.setAttribute('data-discount-usd', currentPrice);
+                }
+            }
+        }
+    });
+
+    // Inicializar carousel
+    document.getElementById('nextBtn').addEventListener('click', () => {
+        currentSlide = (currentSlide + 1) % totalSlides;
+        updateCarousel();
+    });
+    
+    document.getElementById('prevBtn').addEventListener('click', () => {
+        currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+        updateCarousel();
+    });
+    
+    // Auto slide
+    setInterval(() => {
+        currentSlide = (currentSlide + 1) % totalSlides;
+        updateCarousel();
+    }, 5000);
+    
+    // Inicializar carrito
+    updateCartBadge();
+    
+    // Event listeners del carrito
+    document.getElementById('floatingCartBtn').addEventListener('click', () => {
+        updateCartModal();
+        document.getElementById('cartModal').classList.remove('hidden');
+    });
+    
+    document.getElementById('closeCartModal').addEventListener('click', () => {
+        document.getElementById('cartModal').classList.add('hidden');
+    });
+    
+    document.getElementById('closeProductModal').addEventListener('click', () => {
+        document.getElementById('productModal').classList.add('hidden');
+    });
+    
+    document.getElementById('addToCartFromModal').addEventListener('click', () => {
+        if (currentProductModal) {
+            addToCart(currentProductModal.name, currentProductModal.price, currentProductModal.image);
+            document.getElementById('productModal').classList.add('hidden');
+        }
+    });
+    
+    // AÑADIR EVENT LISTENER PARA EL BOTÓN "PROCESAR COMPRA"
+    document.getElementById('checkoutBtn').addEventListener('click', () => {
+        if (cartItems.length > 0) {
+            openCheckoutModal();
+        }
+    });
+    
+    document.getElementById('closeCheckoutModal').addEventListener('click', () => {
+        document.getElementById('checkoutModal').classList.add('hidden');
+    });
+    
+    // Inicializar texto deslizante
+    initTextSlider();
+    
+    // Estilos para animaciones
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes fade-in-out {
+            0% { opacity: 0; transform: translateY(-10px); }
+            15%, 85% { opacity: 1; transform: translateY(0); }
+            100% { opacity: 0; transform: translateY(-10px); }
+        }
+        
+        .animate-fade-in-out {
+            animation: fade-in-out 3s ease-in-out forwards;
+        }
+        
+        @keyframes fade-out {
+            to { opacity: 0; transform: translateY(-10px); }
+        }
+        
+        .animate-fade-out {
+            animation: fade-out 0.3s ease-in-out forwards;
+        }
+    `;
+    document.head.appendChild(style);
+});
+</script>
 </body>
 </html>
