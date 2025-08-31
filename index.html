@@ -316,42 +316,44 @@ button.view-more:hover {
   }
 }
  
-/* Selector de Moneda Optimizado */
 .currency-selector {
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 16px;
-    padding: 4px 8px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 14px;
+    padding: 5px 10px;
     font-size: 12px;
     font-weight: 500;
     cursor: pointer;
-    transition: all 0.3s ease;
-    color: white;
+    color: #fff;
     display: flex;
     align-items: center;
     gap: 6px;
-    border: 1px solid rgba(255, 255, 255, 0.25);
-    height: 30px;
-    margin-right: 2px;
+    border: 2px solid rgba(255,255,255,0.32);
+    box-shadow: 0 4px 16px rgba(79,70,229,0.13);
+    transition: box-shadow 0.3s, background 0.3s, border 0.2s, transform 0.2s;
 }
 
-.currency-selector:hover {
-    background: rgba(255, 255, 255, 0.3);
+.currency-selector:hover,
+.currency-selector:focus {
+    background: rgba(255,255,255,0.35);
+    border: 2px solid #4f46e5;
+    box-shadow: 0 8px 32px rgba(79,70,229,0.20);
+    transform: translateY(-2px) scale(1.02);
+    outline: none;
 }
 
 .currency-options {
     position: absolute;
     top: 100%;
     right: 0;
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
-    padding: 8px 0;
-    z-index: 100;
-    min-width: 200px;
-    margin-top: 6px;
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 8px 32px rgba(79,70,229,0.13);
+    min-width: 210px;
+    margin-top: 8px;
     display: none;
-    border: 1px solid #e2e8f0;
-    animation: fadeIn 0.2s ease-out;
+    animation: fadeInScaleUp 0.25s cubic-bezier(.39,.575,.565,1) forwards;
+    z-index: 101;
+    border: 1.5px solid #e2e8f0;
 }
 
 .currency-options.show {
@@ -359,40 +361,52 @@ button.view-more:hover {
 }
 
 .currency-option {
-    padding: 10px 16px;
+    padding: 12px 18px;
     cursor: pointer;
-    transition: all 0.2s ease;
     display: flex;
     align-items: center;
+    font-size: 14px;
     color: #334155;
-    font-size: 13px;
+    transition: background 0.22s, color 0.22s;
+    position: relative;
 }
 
 .currency-option:hover {
-    background: #f1f5f9;
+    background: #eef2ff;
+    color: #4f46e5;
+    transform: scale(1.02);
 }
 
 .currency-option.active {
-    background: #f8fafc;
+    background: #e0e7ff;
     color: #4f46e5;
-    font-weight: 500;
+    font-weight: 600;
+    border-left: 3px solid #7c3aed;
 }
 
 .currency-badge {
-    background: rgba(79, 70, 229, 0.1);
-    color: #4f46e5;
-    padding: 3px 8px;
-    border-radius: 10px;
-    font-size: 10px;
+    background: #4f46e5;
+    color: #fff;
+    padding: 2px 9px;
+    border-radius: 12px;
+    font-size: 11px;
     font-weight: 500;
-    margin-left: 8px;
+    margin-left: 10px;
+    box-shadow: 0 2px 4px rgba(79,70,229,0.12);
 }
 
 .currency-icon {
-    margin-right: 8px;
-    font-size: 12px;
-    width: 16px;
+    margin-right: 10px;
+    font-size: 16px;
+    width: 20px;
     text-align: center;
+    color: #7c3aed;
+    transition: color 0.25s;
+}
+
+.currency-option.active .currency-icon,
+.currency-option:hover .currency-icon {
+    color: #4f46e5;
 }
 
 .currency-details {
@@ -402,16 +416,18 @@ button.view-more:hover {
     flex: 1;
 }
 
-@keyframes fadeIn {
+/* Animación suaves para apertura */
+@keyframes fadeInScaleUp {
     from {
         opacity: 0;
-        transform: translateY(-8px);
+        transform: translateY(-14px) scale(0.98);
     }
     to {
         opacity: 1;
-        transform: translateY(0);
+        transform: translateY(0) scale(1);
     }
 }
+
      </style>
  </head>
  <body class="pb-20">
@@ -442,7 +458,7 @@ button.view-more:hover {
                      <i class="fas fa-dollar-sign currency-icon"></i>
                      <div class="currency-details">
                          <span>Dólar Estadounidense</span>
-                         <span class="currency-badge">Predeterminado</span>
+                         <span class="currency-badge">1:1</span>
                      </div>
                  </div>
                  <div class="currency-option" data-currency="CUP">
@@ -453,7 +469,7 @@ button.view-more:hover {
                      </div>
                  </div>
                  <div class="currency-option" data-currency="CUPT">
-                     <i class="fas fa-money-bill-transfer currency-icon"></i>
+                     <i class="fas fa-money-check-alt currency-icon"></i>
                      <div class="currency-details">
                          <span>CUP Transferencia</span>
                          <span class="currency-badge">1:440</span>
@@ -1254,8 +1270,8 @@ function updateCartModal() {
     const subtotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
     subtotalElement.textContent = formatPrice(subtotal);
     
-    // Calculate shipping (free if over $200)
-    let shipping = subtotal >= 200 ? 0 : 50;
+    // Calculate shipping (free if over $50)
+    let shipping = subtotal >= 50 ? 0 : 0.50;
     shippingElement.textContent = shipping === 0 ? 'GRATIS' : formatPrice(shipping);
     
     // Calculate total
@@ -1369,7 +1385,7 @@ function openCheckoutModal() {
     
     // Calculate subtotal and shipping
     const subtotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-    const shipping = subtotal >= 200 ? 0 : 50;
+    const shipping = subtotal >= 50 ? 0 : 0.50;
     const total = subtotal + shipping;
     
     // Update order summary
@@ -1420,7 +1436,7 @@ document.getElementById('checkoutForm').addEventListener('submit', (e) => {
     
     // Calculate subtotal and shipping
     const subtotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-    const shipping = subtotal >= 200 ? 0 : 50;
+    const shipping = subtotal >= 50 ? 0 : 0.50;
     const total = subtotal + shipping;
     
     // Create WhatsApp message - CORREGIDO
@@ -1760,4 +1776,3 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 </body>
 </html>
-              
