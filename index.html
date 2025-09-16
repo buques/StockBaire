@@ -1151,8 +1151,8 @@
                 const discountPercent = hasDiscount ? Math.round((1 - product.price / product.old_price) * 100) : 0;
                 
                 // Escapar comillas en la descripción
-                const safeDescription = product.description.replace(/"/g, '"').replace(/'/g, ''');
-                const safeName = product.name.replace(/"/g, '"').replace(/'/g, ''');
+                const safeDescription = product.description.replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+                const safeName = product.name.replace(/"/g, '&quot;').replace(/'/g, '&#39;');
                 const deviceName = product.devices ? product.devices.name : '';
                 
                 productCard.innerHTML = `
